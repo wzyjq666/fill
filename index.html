@@ -1,79 +1,230 @@
-<html lang="en">
-  <head>
-    <title>Instant Canvas Fill Example</title>
-    <link rel="stylesheet" href="index.css"></link>
-  </head>
-  <body>
-    <p>
-      This is an example of how to fill an area of an image, displayed in a HTML
-      Canvas, instantly.
-    </p>
-    <p>
-      The code for this is available on 
-      <a href="https://github.com/shaneosullivan/example-canvas-fill" target="_blank">Github</a>,
-      or just view the page source.  You can also read a description of how it
-      works <a href="https://shaneosullivan.wordpress.com/2023/05/23/instant-colour-fill-with-html-canvas">
-        my blog post
-      </a> about it.
-    </p>
-    <div>
-      <form id="speedForm" action="">
-        <label><input type="radio" name="fillspeed" value="instant"></input> Fill Instantly</label>
-        <label><input type="radio" name="fillspeed" value="slow" checked></input> Fill Slowly</label>
-      </form>
-      <form id="colourForm">
-        <label style="background-color: #380408; color: #000000;"><input type="radio" name="colour" value="#380408"></input> 玄色</label>
-        <label style="background-color: #4D271A; color: #000000;"><input type="radio" name="colour" value="#4D271A"></input> 烟栗</label>
-        <label style="background-color: #40312E; color: #000000;"><input type="radio" name="colour" value="#40312E"></input> 酱色</label>
-        <label style="background-color: #373334; color: #000000;"><input type="radio" name="colour" value="#373334"></input> 灯草灰</label>
-        <label style="background-color: #273540; color: #000000;"><input type="radio" name="colour" value="#273540"></input> 黛</label>
-      </form>
-    </div>
-asdfgh
-    <canvas
-      id="canvas"
-      style="height: 750px; width: 1000px; border: 1px solid #666666"
-      height="750"
-      width="1000"
-    ></canvas>
-asdfgh
-    <!-- Tip o' the hat to https://tholman.com/github-corners -->
-    <a
-      href="https://github.com/shaneosullivan/example-canvas-fill"
-      class="github-corner"
-      aria-label="View source on GitHub"
-      target="_blank"
-    >
-      <svg
-        width="40"
-        height="40"
-        viewBox="0 0 250 250"
-        style="
-          fill: #151513;
-          color: #fff;
-          position: absolute;
-          top: 0;
-          border: 0;
-          right: 0;
-        "
-        aria-hidden="true"
-      >
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path
-          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-          fill="currentColor"
-          style="transform-origin: 130px 106px"
-          class="octo-arm"
-        ></path>
-        <path
-          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-          fill="currentColor"
-          class="octo-body"
-        ></path>
-      </svg>
-    </a>
-    
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Instant Canvas Fill Example</title>
+  <link rel="stylesheet" href="index.css"></link>
+  <!-- Import style -->
+  <link
+          rel="stylesheet"
+          href="//cdn.jsdelivr.net/npm/element-plus/dist/index.css"
+  />
+  <!-- Import Vue 3 -->
+  <script src="//cdn.jsdelivr.net/npm/vue@3"></script>
+  <!-- Import component library -->
+  <script src="//cdn.jsdelivr.net/npm/element-plus"></script>
+</head>
+<body>
+<div id="app">
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+        <div>
+          <form id="speedForm" action="">
+            <label><input type="radio" name="fillspeed" value="instant"></input>快速填充</label>
+            <label><input type="radio" name="fillspeed" value="slow" checked></input>缓慢填充</label>
+          </form>
+        </div>
+      </el-header>
 
-    <script type="text/javascript" src="./src/browser.js"></script>
-  </body>
+      <el-container>
+        <el-aside width="200px">
+          <el-scrollbar height="500px">
+            <form id="colourForm">
+              <div v-for="c in colors" :key="c.color">
+                <input type="radio" name="colour" :value="c.color">
+                <el-button circle :color="c.color" size="mini">{{ c.text[0] }}</el-button>
+                {{ c.text }}
+                <br>
+              </div>
+            </form>
+          </el-scrollbar>
+        </el-aside>
+        <el-container>
+          <el-main>
+            <canvas
+              id="canvas"
+              style="border: 1px solid #666666"
+              height="500px"
+              width="500px"
+            ></canvas>
+          </el-main>
+          <el-footer>Footer</el-footer>
+        </el-container>
+      </el-container>
+    </el-container>
+  </div>
+</div>
+</div>
+<script type="text/javascript" src="./src/browser.js"></script>
+<script>
+  const App = {
+    data() {
+      return {
+        colors:[
+          {
+            color:"#380408",
+            text:"玄色"
+          },{
+            color:"#4F2519",
+            text:"烟栗"
+          },{
+            color:"#40312E",
+            text:"酱色"
+          },{
+            color:"#373334",
+            text:"烟草灰"
+          },{
+            color:"#273540",
+            text:"黛色"
+          },{
+            color:"#3C373D",
+            text:"百草霜"
+          },{
+            color:"#035E8D",
+            text:"沙青"
+          },{
+            color:"#5A6C92",
+            text:"灰蓝"
+          },{
+            color:"#59577C",
+            text:"绀青"
+          },{
+            color:"#70769A",
+            text:"花青"
+          },{
+            color:"#7A95C2",
+            text:"竹叶"
+          },{
+            color:"#1A6FB0",
+            text:"毛月"
+          },{
+            color:"#75BBDD",
+            text:"宵色"
+          },{
+            color:"#E8F4F0",
+            text:"月白"
+          },{
+            color:"#FDFAEB",
+            text:"練色"
+          },{
+            color:"#FDFAEB",
+            text:"甘石色"
+          },{
+            color: "#FFF7EC",
+            text:"米色"
+          },{
+            color: "#007666",
+            text:"翠绿"
+          },{
+            color: "#179280",
+            text:"孔雀绿"
+          },{
+            color: "#148E91",
+            text:"品绿"
+          },{
+            color: "#639A9F",
+            text:"碧石玉"
+          },{
+            color: "#7AB4B8",
+            text:"深松绿"
+          },{
+            color: "#C6E4EE",
+            text:"缥色"
+          },{
+            color: "#D3E0D9",
+            text:"秘色"
+          },{
+            color: "#99B38C",
+            text:"荷绿"
+          },{
+            color: "#9DA983",
+            text:"青豆色"
+          },{
+            color: "#A4B197",
+            text:"铜绿"
+          },{
+            color: "#B6AC77",
+            text:"枯绿"
+          },{
+            color: "#B0824E",
+            text:"棕茶色"
+          },{
+            color: "#A58634",
+            text:"姜黄"
+          },{
+            color: "#D3AE22",
+            text:"秋香"
+          },{
+            color: "#FAEF71",
+            text:"缃色"
+          },{
+            color: "#FFEF43",
+            text:"明黄"
+          },{
+            color: "#F39402",
+            text:"萱草黄"
+          },{
+            color: "#D2984F",
+            text:"琥珀色"
+          },{
+            color: "#D97537",
+            text:"丹色"
+          },{
+            color: "#ED4C1E",
+            text:"朱砂"
+          },{
+            color: "#CA4204",
+            text:"曙色"
+          },{
+            color: "#AD6245",
+            text:"蘇纺"
+          },{
+            color: "#C04728",
+            text:"赭色"
+          },{
+            color: "#C03D35",
+            text:"胭脂"
+          },{
+            color: "#EA3929",
+            text:"朱槿"
+          },{
+            color: "#E31F13",
+            text:"絳色"
+          },{
+            color: "#BF1633",
+            text:"牡丹花"
+          },{
+            color: "#D93341",
+            text:"石榴红"
+          },{
+            color: "#E76DAA",
+            text:"桃红"
+          },{
+            color: "#894D95",
+            text:"青莲"
+          },{
+            color: "#9473A8",
+            text:"木槿紫"
+          },{
+            color: "#9473A8",
+            text:"木槿紫"
+          },{
+            color: "#ADA0CC",
+            text:"雪青"
+          },{
+            color: "#C1A2CE",
+            text:"丁香"
+          },{
+            color: "#E4C2D2",
+            text:"藕荷"
+          }
+        ]
+      };
+    },
+  };
+  const app = Vue.createApp(App);
+  app.use(ElementPlus);
+  app.mount("#app");
+</script>
+</body>
 </html>

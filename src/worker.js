@@ -6,7 +6,6 @@
 // from the main UI thread.
 onmessage = function (evt) {
   const workerData = evt.data;
-
   console.log("worker got message", workerData);
   switch (workerData.action) {
     case "fill":

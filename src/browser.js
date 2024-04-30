@@ -1,5 +1,5 @@
 (function () {
-    const IMAGE_PATH = "./images/airplane.png";
+    const IMAGE_PATH = "./images/airplane.png?" + new Date().getTime();
     let fillSpeed = "slow";
     let selectedColour = "#FF0000";
     let maskInfo = null;

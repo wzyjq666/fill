@@ -14,7 +14,7 @@
   <script src="//cdn.jsdelivr.net/npm/element-plus"></script>
 </head>
 <body>
-<div id="app">
+<div id="app" :data-color="color" :data-color-text="color_text">
   <div class="common-layout">
     <el-container>
       <el-header>
@@ -25,30 +25,33 @@
           </form>
         </div>
       </el-header>
-
       <el-container>
         <el-aside width="200px">
-          <el-scrollbar height="500px">
-            <form id="colourForm">
-              <div v-for="c in colors" :key="c.color">
-                <input type="radio" name="colour" :value="c.color">
-                <el-button circle :color="c.color" size="mini">{{ c.text[0] }}</el-button>
-                {{ c.text }}
-                <br>
-              </div>
-            </form>
+
+          <el-scrollbar>
+          <el-input  type="text" v-model="searchKeyword" placeholder="输入颜色关键词"></el-input>
+          <el-scrollbar height="560px">
+            <div v-for="c in filteredColors" :key="c.color">
+              <el-button style="width: 100%" :color="c.color" @click="color=c.color;color_text=c.text">{{ c.text }}</el-button>
+            </div>
+          </el-scrollbar>
           </el-scrollbar>
         </el-aside>
         <el-container>
-          <el-main>
-            <canvas
-              id="canvas"
-              style="border: 1px solid #666666"
-              height="500px"
-              width="500px"
-            ></canvas>
+          <el-main style="display: flex; justify-content: center; align-items: center;">
+            <div style="width: 500px">
+              <el-button plain :color="color" style="width:500px">
+                当前颜色：{{color_text}}
+              </el-button>
+              <canvas
+                id="canvas"
+                style="border: 1px solid #666666"
+                height="500px"
+                width="500px"
+              ></canvas>
+            </div>
           </el-main>
-          <el-footer>Footer</el-footer>
+          <el-footer></el-footer>
         </el-container>
       </el-container>
     </el-container>
@@ -60,7 +63,17 @@
   const App = {
     data() {
       return {
+        color:"#380408",
+        color_text:"玄色",
         colors:[
+          {
+            color:"#FFFFFF",
+            text:"白色"
+          },
+          {
+            color:"#000000",
+            text:"黑色"
+          },
           {
             color:"#380408",
             text:"玄色"
@@ -206,9 +219,6 @@
             color: "#9473A8",
             text:"木槿紫"
           },{
-            color: "#9473A8",
-            text:"木槿紫"
-          },{
             color: "#ADA0CC",
             text:"雪青"
           },{
@@ -218,9 +228,23 @@
             color: "#E4C2D2",
             text:"藕荷"
           }
-        ]
+        ],
+        searchKeyword: ''
       };
-    },
+    },watch: {
+      color(newColor) {
+          // 调用browser.js中的方法，传递新的颜色值
+          window.browserColorChange(newColor);
+      }
+    },computed: {
+      filteredColors() {
+        const keyword = this.searchKeyword.trim().toLowerCase();
+        if (!keyword) {
+          return this.colors;
+        }
+        return this.colors.filter(color => color.text.includes(keyword));
+      }
+    }
   };
   const app = Vue.createApp(App);
   app.use(ElementPlus);

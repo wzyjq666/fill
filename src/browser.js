@@ -325,9 +325,9 @@
   }
 
   function addFormListener() {
-    document.getElementById("speedForm").addEventListener("change", (evt) => {
-      fillSpeed = evt.target.value;
-    });
+    // document.getElementById("speedForm").addEventListener("change", (evt) => {
+    //   fillSpeed = evt.target.value;
+    // });
     window.browserColorChange = function(newColor) {
       selectedColour=newColor;
     }

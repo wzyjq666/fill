@@ -17,25 +17,28 @@
 <div id="app" :data-color="color" :data-color-text="color_text">
   <div class="common-layout">
     <el-container>
-      <el-header>
-        <div>
-          <form id="speedForm" action="">
-            <label><input type="radio" name="fillspeed" value="instant"></input>快速填充</label>
-            <label><input type="radio" name="fillspeed" value="slow" checked></input>缓慢填充</label>
-          </form>
-        </div>
-      </el-header>
+<!--      <el-header>-->
+<!--        <div>-->
+<!--          <form id="speedForm" action="">-->
+<!--            <label><input type="radio" name="fillspeed" value="instant"></input>快速填充</label>-->
+<!--            <label><input type="radio" name="fillspeed" value="slow" checked></input>缓慢填充</label>-->
+<!--          </form>-->
+<!--        </div>-->
+<!--      </el-header>-->
       <el-container>
-        <el-aside width="200px">
-
-          <el-scrollbar>
-          <el-input  type="text" v-model="searchKeyword" placeholder="输入颜色关键词"></el-input>
-          <el-scrollbar height="560px">
-            <div v-for="c in filteredColors" :key="c.color">
-              <el-button style="width: 100%" :color="c.color" @click="color=c.color;color_text=c.text">{{ c.text }}</el-button>
-            </div>
-          </el-scrollbar>
-          </el-scrollbar>
+        <el-aside width="150px">
+          <el-container>
+            <el-row>
+              <el-input  type="text" v-model="searchKeyword" placeholder="输入颜色关键词"></el-input>
+              <el-scrollbar height="530px" style=" width:150px">
+                <div v-for="c in filteredColors" :key="c.color">
+                  <el-button style="width: 100%" :color="c.color" @click="color=c.color;color_text=c.text">{{ c.text }}</el-button>
+                </div>
+              </el-scrollbar>
+            </el-row>
+            <el-row>
+            </el-row>
+          </el-container>
         </el-aside>
         <el-container>
           <el-main style="display: flex; justify-content: center; align-items: center;">
@@ -53,6 +56,12 @@
           </el-main>
           <el-footer></el-footer>
         </el-container>
+        <el-aside width="300px">
+          <el-tag style="width: 100%" size="large" round>每日诗句</el-tag>
+          <iframe frameborder="no" border="0" height="100px" marginwidth="0" marginheight="0" src="https://cn.widgetstore.net/view/index.html?q=b69f67c062af00d807c80a7605e48aa3.9fcadd61663239190019a85a48e43e66"></iframe>
+          <el-tag style="width: 100%" size="large" round>音乐播放厅</el-tag>
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" height=400px src="//music.163.com/outchain/player?type=0&id=4990269535&auto=1&height=430"></iframe>
+        </el-aside>
       </el-container>
     </el-container>
   </div>

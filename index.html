@@ -4,10 +4,7 @@
   <title>Instant Canvas Fill Example</title>
   <link rel="stylesheet" href="index.css"></link>
   <!-- Import style -->
-  <link
-          rel="stylesheet"
-          href="//cdn.jsdelivr.net/npm/element-plus/dist/index.css"
-  />
+  <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/element-plus/2.0.4/index.min.css" type="text/css" rel="stylesheet" />
   <!-- Import Vue 3 -->
   <script src="//cdn.jsdelivr.net/npm/vue@3"></script>
   <!-- Import component library -->
@@ -15,22 +12,23 @@
 </head>
 <body>
 <div id="app" :data-color="color" :data-color-text="color_text">
-  <div class="common-layout">
+  <div class="common-layout" style="border: black;">
     <el-container>
-<!--      <el-header>-->
+      <el-header style="display: flex; justify-content: center; align-items: center;">
+        <iframe frameborder="no" width="100%" border="0" height="60px" marginwidth="0" marginheight="0" src="https://cn.widgetstore.net/view/index.html?q=5b049cc8622189440f31d6307d40e568.0af7fd756632484d00199f24137618ea"></iframe>
 <!--        <div>-->
 <!--          <form id="speedForm" action="">-->
 <!--            <label><input type="radio" name="fillspeed" value="instant"></input>快速填充</label>-->
 <!--            <label><input type="radio" name="fillspeed" value="slow" checked></input>缓慢填充</label>-->
 <!--          </form>-->
 <!--        </div>-->
-<!--      </el-header>-->
+      </el-header>
       <el-container>
-        <el-aside width="150px">
+        <el-aside width="200px">
           <el-container>
             <el-row>
               <el-input  type="text" v-model="searchKeyword" placeholder="输入颜色关键词"></el-input>
-              <el-scrollbar height="530px" style=" width:150px">
+              <el-scrollbar height="530px" style="width:100%">
                 <div v-for="c in filteredColors" :key="c.color">
                   <el-button style="width: 100%" :color="c.color" @click="color=c.color;color_text=c.text">{{ c.text }}</el-button>
                 </div>
@@ -44,7 +42,9 @@
           <el-main style="display: flex; justify-content: center; align-items: center;">
             <div style="width: 500px">
               <el-button plain :color="color" style="width:500px">
-                当前颜色：{{color_text}}
+                <p style="color: black">
+                  当前颜色：{{color_text}}
+                </p>
               </el-button>
               <canvas
                 id="canvas"
@@ -72,8 +72,8 @@
   const App = {
     data() {
       return {
-        color:"#380408",
-        color_text:"玄色",
+        color:"#C6E4EE",
+        color_text:"缥色",
         colors:[
           {
             color:"#FFFFFF",
@@ -82,34 +82,6 @@
           {
             color:"#000000",
             text:"黑色"
-          },
-          {
-            color:"#380408",
-            text:"玄色"
-          },{
-            color:"#4F2519",
-            text:"烟栗"
-          },{
-            color:"#40312E",
-            text:"酱色"
-          },{
-            color:"#373334",
-            text:"烟草灰"
-          },{
-            color:"#273540",
-            text:"黛色"
-          },{
-            color:"#3C373D",
-            text:"百草霜"
-          },{
-            color:"#035E8D",
-            text:"沙青"
-          },{
-            color:"#5A6C92",
-            text:"灰蓝"
-          },{
-            color:"#59577C",
-            text:"绀青"
           },{
             color:"#70769A",
             text:"花青"
@@ -236,6 +208,34 @@
           },{
             color: "#E4C2D2",
             text:"藕荷"
+          },
+          {
+            color:"#380408",
+            text:"玄色"
+          },{
+            color:"#4F2519",
+            text:"烟栗"
+          },{
+            color:"#40312E",
+            text:"酱色"
+          },{
+            color:"#373334",
+            text:"烟草灰"
+          },{
+            color:"#273540",
+            text:"黛色"
+          },{
+            color:"#3C373D",
+            text:"百草霜"
+          },{
+            color:"#035E8D",
+            text:"沙青"
+          },{
+            color:"#5A6C92",
+            text:"灰蓝"
+          },{
+            color:"#59577C",
+            text:"绀青"
           }
         ],
         searchKeyword: ''

@@ -104,7 +104,7 @@
       <img :src="article.imgurl">
       <h3>{{ article.title }}</h3>
       <p>{{ article.description }}</p>
-      <a :href="article.url+'?time='+ new Date().getTime()" target="_blank">前往链接</a>
+      <a :href="article.url+'&time='+ new Date().getTime()" target="_blank">前往链接</a>
     </div>
   </div>
 </div>
@@ -119,18 +119,6 @@
         is_find:true,
         is_search:true,
         articles: [
-          {
-            "title": "",
-            "imgurl": "images/mandala/sprite0.png",
-            "description": "",
-            "url": "/draw.html?imageurl=images/mandala/sprite0.png"
-          },
-          {
-            "title": "",
-            "imgurl": "images/mandala/sprite1.png",
-            "description": "",
-            "url": "/draw.html?imageurl=images/mandala/sprite1.png"
-          },
           {
             "title": "",
             "imgurl": "images/mandala/sprite2.png",
@@ -190,12 +178,6 @@
             "imgurl": "images/mandala/sprite11.png",
             "description": "",
             "url": "/draw.html?imageurl=images/mandala/sprite11.png"
-          },
-          {
-            "title": "",
-            "imgurl": "images/mandala/sprite12.png",
-            "description": "",
-            "url": "/draw.html?imageurl=images/mandala/sprite12.png"
           },
           {
             "title": "",

@@ -1,13 +1,6 @@
 (function () {
-  // 获取当前页面的 URL
-  var currentUrl = window.location.href;
 
-  // 创建 URLSearchParams 对象，并传入 URL 查询参数部分
-  var urlParams = new URLSearchParams(currentUrl);
-
-  // const IMAGE_PATH = urlParams.get('imageurl')+"?" + new Date().getTime();
-  const IMAGE_PATH = "images/mandala/sprite0.png"
-  console.log("=-----IMAGE_PATH")
+  const IMAGE_PATH = new URLSearchParams(window.location.search).get('imageurl');
 
   let fillSpeed = "slow";
   let selectedColour = "#FF0000";
@@ -334,6 +327,8 @@
   }
 
   function addFormListener() {
+
+    console.log(IMAGE_PATH)
     // document.getElementById("speedForm").addEventListener("change", (evt) => {
     //   fillSpeed = evt.target.value;
     // });

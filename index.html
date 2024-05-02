@@ -1,263 +1,235 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Instant Canvas Fill Example</title>
-  <link rel="stylesheet" href="index.css"></link>
-  <!-- 引入样式 -->
-  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/element-plus/2.3.3/index.css" rel="stylesheet">
-  <!-- 引入vue3 -->
-  <script src="https://unpkg.com/vue@3"></script>
-  <!-- 引入element plus -->
-  <script src="https://cdn.bootcdn.net/ajax/libs/element-plus/2.3.3/index.full.js"></script>
-</head>
-<body>
-<div id="app" :data-color="color" :data-color-text="color_text">
-  <div class="common-layout" style="border: black;">
-    <el-container>
-      <el-header style="display: flex; justify-content: center; align-items: center;">
-        <iframe frameborder="no" width="100%" border="0" height="60px" marginwidth="0" marginheight="0" src="https://cn.widgetstore.net/view/index.html?q=5b049cc8622189440f31d6307d40e568.0af7fd756632484d00199f24137618ea"></iframe>
-<!--        <div>-->
-<!--          <form id="speedForm" action="">-->
-<!--            <label><input type="radio" name="fillspeed" value="instant"></input>快速填充</label>-->
-<!--            <label><input type="radio" name="fillspeed" value="slow" checked></input>缓慢填充</label>-->
-<!--          </form>-->
-<!--        </div>-->
-      </el-header>
-      <el-container>
-        <el-aside width="200px">
-          <el-container>
-            <el-row>
-              <el-input  type="text" v-model="searchKeyword" placeholder="输入颜色关键词"></el-input>
-              <el-scrollbar height="530px" style="width:100%">
-                <div v-for="c in filteredColors" :key="c.color">
-                  <el-button style="width: 100%" :color="c.color" @click="color=c.color;color_text=c.text">{{ c.text }}</el-button>
-                </div>
-              </el-scrollbar>
-            </el-row>
-            <el-row>
-            </el-row>
-          </el-container>
-        </el-aside>
-        <el-container>
-          <el-main style="display: flex; justify-content: center; align-items: center;">
-            <div style="width: 500px">
-              <el-button plain :color="color" style="width:500px">
-                <p style="color: black">
-                  当前颜色：{{color_text}}
-                </p>
-              </el-button>
-              <canvas
-                id="canvas"
-                style="border: 1px solid #666666"
-                height="540px"
-                width="540px"
-              ></canvas>
-            </div>
-          </el-main>
-          <el-footer></el-footer>
-        </el-container>
-        <el-aside width="300px">
-          <el-tag style="width: 100%" size="large" round>每日诗句</el-tag>
-          <iframe frameborder="no" border="0" height="100px" marginwidth="0" marginheight="0" src="https://cn.widgetstore.net/view/index.html?q=b69f67c062af00d807c80a7605e48aa3.9fcadd61663239190019a85a48e43e66"></iframe>
-          <el-tag style="width: 100%" size="large" round>音乐播放厅</el-tag>
-          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" height=400px src="//music.163.com/outchain/player?type=0&id=4990269535&auto=1&height=430"></iframe>
-        </el-aside>
-      </el-container>
-    </el-container>
-  </div>
-</div>
-</div>
-<script type="text/javascript" src="./src/browser.js"></script>
-<script>
-  const App = {
-    data() {
-      return {
-        color:"#C6E4EE",
-        color_text:"缥色",
-        colors:[
-          {
-            color:"#FFFFFF",
-            text:"白色"
-          },
-          {
-            color:"#000000",
-            text:"黑色"
-          },{
-            color:"#70769A",
-            text:"花青"
-          },{
-            color:"#7A95C2",
-            text:"竹叶"
-          },{
-            color:"#1A6FB0",
-            text:"毛月"
-          },{
-            color:"#75BBDD",
-            text:"宵色"
-          },{
-            color:"#E8F4F0",
-            text:"月白"
-          },{
-            color:"#FDFAEB",
-            text:"練色"
-          },{
-            color:"#FDFAEB",
-            text:"甘石色"
-          },{
-            color: "#FFF7EC",
-            text:"米色"
-          },{
-            color: "#007666",
-            text:"翠绿"
-          },{
-            color: "#179280",
-            text:"孔雀绿"
-          },{
-            color: "#148E91",
-            text:"品绿"
-          },{
-            color: "#639A9F",
-            text:"碧石玉"
-          },{
-            color: "#7AB4B8",
-            text:"深松绿"
-          },{
-            color: "#C6E4EE",
-            text:"缥色"
-          },{
-            color: "#D3E0D9",
-            text:"秘色"
-          },{
-            color: "#99B38C",
-            text:"荷绿"
-          },{
-            color: "#9DA983",
-            text:"青豆色"
-          },{
-            color: "#A4B197",
-            text:"铜绿"
-          },{
-            color: "#B6AC77",
-            text:"枯绿"
-          },{
-            color: "#B0824E",
-            text:"棕茶色"
-          },{
-            color: "#A58634",
-            text:"姜黄"
-          },{
-            color: "#D3AE22",
-            text:"秋香"
-          },{
-            color: "#FAEF71",
-            text:"缃色"
-          },{
-            color: "#FFEF43",
-            text:"明黄"
-          },{
-            color: "#F39402",
-            text:"萱草黄"
-          },{
-            color: "#D2984F",
-            text:"琥珀色"
-          },{
-            color: "#D97537",
-            text:"丹色"
-          },{
-            color: "#ED4C1E",
-            text:"朱砂"
-          },{
-            color: "#CA4204",
-            text:"曙色"
-          },{
-            color: "#AD6245",
-            text:"蘇纺"
-          },{
-            color: "#C04728",
-            text:"赭色"
-          },{
-            color: "#C03D35",
-            text:"胭脂"
-          },{
-            color: "#EA3929",
-            text:"朱槿"
-          },{
-            color: "#E31F13",
-            text:"絳色"
-          },{
-            color: "#BF1633",
-            text:"牡丹花"
-          },{
-            color: "#D93341",
-            text:"石榴红"
-          },{
-            color: "#E76DAA",
-            text:"桃红"
-          },{
-            color: "#894D95",
-            text:"青莲"
-          },{
-            color: "#9473A8",
-            text:"木槿紫"
-          },{
-            color: "#ADA0CC",
-            text:"雪青"
-          },{
-            color: "#C1A2CE",
-            text:"丁香"
-          },{
-            color: "#E4C2D2",
-            text:"藕荷"
-          },
-          {
-            color:"#380408",
-            text:"玄色"
-          },{
-            color:"#4F2519",
-            text:"烟栗"
-          },{
-            color:"#40312E",
-            text:"酱色"
-          },{
-            color:"#373334",
-            text:"烟草灰"
-          },{
-            color:"#273540",
-            text:"黛色"
-          },{
-            color:"#3C373D",
-            text:"百草霜"
-          },{
-            color:"#035E8D",
-            text:"沙青"
-          },{
-            color:"#5A6C92",
-            text:"灰蓝"
-          },{
-            color:"#59577C",
-            text:"绀青"
-          }
-        ],
-        searchKeyword: ''
-      };
-    },watch: {
-      color(newColor) {
-          // 调用browser.js中的方法，传递新的颜色值
-          window.browserColorChange(newColor);
-      }
-    },computed: {
-      filteredColors() {
-        const keyword = this.searchKeyword.trim().toLowerCase();
-        if (!keyword) {
-          return this.colors;
-        }
-        return this.colors.filter(color => color.text.includes(keyword));
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/vue/3.2.31/vue.global.min.js" type="application/javascript"></script>
+  <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/axios/0.26.0/axios.min.js" type="application/javascript"></script>
+  <script>
+  </script>
+  <title>每日分享</title>
+  <style>
+    /* 基本样式 */
+    .article-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around; /* 修改为space-around */
+      padding: 5px;
+      margin-bottom: 20px; /* 增加行与行之间的间距 */
+    }
+    .articlePai {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      width: 200px;
+      margin: 5px; /* 调整同一行文章之间的间距 */
+    }
+    .article {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      width: calc(50% - 20px); /* 默认情况下，一行显示两个article */
+      margin: 5px; /* 调整同一行文章之间的间距 */
+    }
+    .article img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    /* 使用媒体查询来调整列数 */
+    @media screen and (max-width: 460px) {
+      .article {
+        width: calc(33.3% - 5px); /* 小尺寸一行显示三个article */
       }
     }
-  };
-  const app = Vue.createApp(App);
-  app.use(ElementPlus);
-  app.mount("#app");
+
+    @media screen and (min-width: 461px) and (max-width: 640px) {
+      .article {
+        width: calc(25% - 5px); /* 中尺寸一行显示四个article */
+      }
+    }
+
+    @media screen and (min-width: 641px) and (max-width: 750px) {
+      .article {
+        width: calc(25% - 5px); /* 中尺寸一行显示四个article */
+      }
+    }
+
+    @media screen and (min-width: 751px) {
+      .article {
+        width: calc(20% - 5px); /* 大尺寸一行显示五个article */
+      }
+    }
+    /* 修改搜索框样式 */
+    .search-container {
+      margin-bottom: 20px; /* 增加搜索框与文章容器之间的间距 */
+      text-align: center; /* 水平居中搜索框 */
+    }
+
+    #searchInput {
+      padding: 10px; /* 增加内边距 */
+      width: 60%; /* 设置宽度 */
+      border: 2px solid #ccc; /* 设置边框 */
+      border-radius: 5px; /* 设置圆角 */
+      font-size: 16px; /* 设置字体大小 */
+      outline: none; /* 去除默认的外边框 */
+    }
+
+    #searchInput::placeholder {
+      color: #999; /* 设置占位符颜色 */
+    }
+    /* 修改搜索按钮样式 */
+    #searchButton {
+      padding: 10px 20px; /* 设置内边距 */
+      border: none; /* 去除边框 */
+      border-radius: 5px; /* 设置圆角 */
+      background-color: #007bff; /* 设置背景颜色 */
+      color: #fff; /* 设置文字颜色 */
+      font-size: 16px; /* 设置字体大小 */
+      cursor: pointer; /* 设置鼠标样式为手型 */
+      transition: background-color 0.3s; /* 添加过渡效果 */
+    }
+
+    #searchButton:hover {
+      background-color: #0056b3; /* 鼠标悬停时改变背景颜色 */
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="article-container">
+    <!-- 使用v-for指令循环渲染articles数组中的每一篇文章 -->
+    <div class="article" v-for="article in articles" :key="article.title">
+      <img :src="article.imgurl">
+      <h3>{{ article.title }}</h3>
+      <p>{{ article.description }}</p>
+      <a :href="article.url+'?time='+ new Date().getTime()" target="_blank">前往链接</a>
+    </div>
+  </div>
+</div>
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        testUtf8:"%E6%B5%8B%E8%AF%95",
+        options: [ { "id": 100100, "name": "莫若书单", "site": "https://www.mrsd.top/", "searchSite": "https://www.mrsd.top/search.html?keywords=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100200, "name": "汇书", "site": "https://www.huibooks.com", "searchSite": "https://www.huibooks.com/?type=post&s=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100250, "name": "boyanglee", "site": "https://www.boyanglee.com/", "searchSite": "https://www.boyanglee.com/home/search.html?kw=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100300, "name": "tacoso", "site": "https://www.tacoso.cc/", "searchSite": "https://www.tacoso.cc/search?keyword=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100400, "name": "书舟", "site": "https://www.shuzhou.cc/", "searchSite": "https://www.shuzhou.cc/?s=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100500, "name": "必应搜索", "site": "https://cn.bing.com/", "searchSite": "https://cn.bing.com/search?q=%E6%B5%8B%E8%AF%95%2Btxt%2Bpdf%2Bmobi%2Bepub&form=QBLH&sp=-1&lq=0&pq=%E6%B5%8B%E8%AF%95%2Btxt%2Bpdf%2Bmobi%2Bepub", "isInsert": "y" }, { "id": 100600, "name": "rejoice博客", "site": "http://www.rejoiceblog.com/", "searchSite": "http://www.rejoiceblog.com/article/search/page/1/?keyword=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100700, "name": "有益读", "site": "https://www.youyidu.xyz/", "searchSite": "https://www.youyidu.xyz/search.html?keywords=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100800, "name": "维京小屋", "site": "https://vikingcabin.com/", "searchSite": "https://vikingcabin.com/?s=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100900, "name": "读书小站", "site": "https://ibooks.org.cn/", "searchSite": "https://cn.bing.com/search?q=%E6%B5%8B%E8%AF%95%2Btxt%2Bpdf%2Bmobi%2Bepub&form=QBLH&sp=-1&lq=0&pq=%E6%B5%8B%E8%AF%95%2Btxt%2Bpdf%2Bmobi%2Bepub", "isInsert": "y" }, { "id": 101000, "name": "知识库", "site": "https://www.zhishikoo.com/", "searchSite": "https://www.zhishikoo.com/?s=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 101100, "name": "书格", "site": "https://new.shuge.org/", "searchSite": "https://new.shuge.org/?s=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 101200, "name": "全索引", "site": "http://www.ctfile.cn/", "searchSite": "http://www.ctfile.cn/?s=%E6%B5%8B%E8%AF%95", "isInsert": "y" } ],
+        optionsPai: [ { "id": 100100, "name": "莫若书单", "site": "https://www.mrsd.top/", "searchSite": "https://www.mrsd.top/search.html?keywords=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100200, "name": "汇书", "site": "https://www.huibooks.com", "searchSite": "https://www.huibooks.com/?type=post&s=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100250, "name": "boyanglee", "site": "https://www.boyanglee.com/", "searchSite": "https://www.boyanglee.com/home/search.html?kw=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100300, "name": "tacoso", "site": "https://www.tacoso.cc/", "searchSite": "https://www.tacoso.cc/search?keyword=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100400, "name": "书舟", "site": "https://www.shuzhou.cc/", "searchSite": "https://www.shuzhou.cc/?s=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100500, "name": "必应搜索", "site": "https://cn.bing.com/", "searchSite": "https://cn.bing.com/search?q=%E6%B5%8B%E8%AF%95%2Btxt%2Bpdf%2Bmobi%2Bepub&form=QBLH&sp=-1&lq=0&pq=%E6%B5%8B%E8%AF%95%2Btxt%2Bpdf%2Bmobi%2Bepub", "isInsert": "y" }, { "id": 100600, "name": "rejoice博客", "site": "http://www.rejoiceblog.com/", "searchSite": "http://www.rejoiceblog.com/article/search/page/1/?keyword=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100700, "name": "有益读", "site": "https://www.youyidu.xyz/", "searchSite": "https://www.youyidu.xyz/search.html?keywords=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100800, "name": "维京小屋", "site": "https://vikingcabin.com/", "searchSite": "https://vikingcabin.com/?s=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 100900, "name": "读书小站", "site": "https://ibooks.org.cn/", "searchSite": "https://cn.bing.com/search?q=%E6%B5%8B%E8%AF%95%2Btxt%2Bpdf%2Bmobi%2Bepub&form=QBLH&sp=-1&lq=0&pq=%E6%B5%8B%E8%AF%95%2Btxt%2Bpdf%2Bmobi%2Bepub", "isInsert": "y" }, { "id": 101000, "name": "知识库", "site": "https://www.zhishikoo.com/", "searchSite": "https://www.zhishikoo.com/?s=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 101100, "name": "书格", "site": "https://new.shuge.org/", "searchSite": "https://new.shuge.org/?s=%E6%B5%8B%E8%AF%95", "isInsert": "y" }, { "id": 101200, "name": "全索引", "site": "http://www.ctfile.cn/", "searchSite": "http://www.ctfile.cn/?s=%E6%B5%8B%E8%AF%95", "isInsert": "y" } ],
+        text:"",
+        is_find:true,
+        is_search:true,
+        articles: [
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite0.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite0.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite1.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite1.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite2.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite2.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite3.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite3.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite4.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite4.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite5.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite5.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite6.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite6.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite7.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite7.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite8.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite8.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite9.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite9.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite10.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite10.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite11.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite11.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite12.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite12.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite13.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite13.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite14.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite14.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite15.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite15.png"
+          },
+          {
+            "title": "",
+            "imgurl": "images/mandala/sprite16.png",
+            "description": "",
+            "url": "/draw.html?imageurl=images/mandala/sprite16.png"
+          }
+        ]
+      };
+    },
+    methods:{
+    },
+    mounted() {
+    }
+  });
+  app.mount('#app');
 </script>
 </body>
 </html>
